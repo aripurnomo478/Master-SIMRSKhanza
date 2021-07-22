@@ -540,7 +540,21 @@ public final class DlgPengembalianDepositPasien extends javax.swing.JDialog {
     }//GEN-LAST:event_CmbDetik2KeyPressed
 
     private void MnKwitansiPengembalianDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnKwitansiPengembalianDepositActionPerformed
-     Map<String, Object> param = new HashMap<>();                 
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+            //TCari.requestFocus();
+        }else if(tabMode.getRowCount()!=0){
+            
+            Sequel.queryu("truncate table temporary_payment");
+            for(int r=0;r<tabMode.getRowCount();r++){  
+                Sequel.menyimpan("temporary_payment","'0',?,?,?,?,?,?,?,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''",7,new String[]{
+                    tabMode.getValueAt(r,0).toString(),tabMode.getValueAt(r,1).toString(),tabMode.getValueAt(r,2).toString(),tabMode.getValueAt(r,3).toString(),
+                    tabMode.getValueAt(r,4).toString(),Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,5).toString())),tabMode.getValueAt(r,6).toString()                    
+                });
+            }
+            
+            Map<String, Object> param = new HashMap<>();                 
             param.put("namars",akses.getnamars());
             param.put("alamatrs",akses.getalamatrs());
             param.put("kotars",akses.getkabupatenrs());
@@ -550,6 +564,9 @@ public final class DlgPengembalianDepositPasien extends javax.swing.JDialog {
             param.put("periode",Tgl1.getSelectedItem()+" "+CmbJam.getSelectedItem()+":"+CmbMenit.getSelectedItem()+":"+CmbDetik.getSelectedItem()+" s.d. "+Tgl2.getSelectedItem()+" "+CmbJam2.getSelectedItem()+":"+CmbMenit2.getSelectedItem()+":"+CmbDetik2.getSelectedItem());   
             param.put("logo",Sequel.cariGambar("select logo from setting")); 
             Valid.MyReport("rptKwitansiPengembalianDepositPasien.jasper","report","::[ Kwitansi Pengembalian Deposit Pasien ]::",param);
+           
+        }
+        this.setCursor(Cursor.getDefaultCursor());    
     }//GEN-LAST:event_MnKwitansiPengembalianDepositActionPerformed
 
     /**
