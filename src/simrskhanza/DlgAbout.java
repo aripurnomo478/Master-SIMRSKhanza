@@ -7,7 +7,7 @@
   nya cacat tidak punya kaki sampai 300 turunan. Susah cari jodoh
   sampai umur 50 tahun sampai 200 turunan. Ya Alloh maafkan kami 
   karena telah berdoa buruk, semua ini kami lakukan karena kami ti
-  dak pernah rela karya kami dibajak tanpa ijin.
+  dak pernah rela karya kami dibajak tanpa ijin. terima kasih
  */
 
 package simrskhanza;
