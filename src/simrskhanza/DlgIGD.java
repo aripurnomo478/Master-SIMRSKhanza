@@ -248,8 +248,11 @@ public final class DlgIGD extends javax.swing.JDialog {
             }
         }
         tbPetugas.setDefaultRenderer(Object.class, new WarnaTable());
-
-        TNoReg.setDocument(new batasInput((byte)8).getKata(TNoReg));
+        //---------------------------------------
+        //Edit Source Code oleh Amelia Yahya ditambahkan karakter tanggal 23 Juli 2021
+        //---------------------------------------
+        TNoReg.setDocument(new batasInput((byte)20).getKata(TNoReg));
+        //-----Penutup-------
         TNoRw.setDocument(new batasInput((byte)17).getKata(TNoRw));
         TNoRM.setDocument(new batasInput((byte)10).getKata(TNoRM));
         kddokter.setDocument(new batasInput((byte)20).getKata(kddokter));
@@ -3686,11 +3689,30 @@ public final class DlgIGD extends javax.swing.JDialog {
             Valid.textKosong(TNoRM,"pasien");
         }else if(kdpnj.getText().trim().equals("")||nmpnj.getText().trim().equals("")){
             Valid.textKosong(kdpnj,"Jenis Bayar");
+        //---------------------------------------
+        //Tambahan oleh Amelia Yahya Tanggal 09 Juli 2021
+        //---------------------------------------
+        }else if(TPngJwb.getText().trim().equals("-")){
+            Valid.textKosong(TPngJwb,"Nama Penangung Jawab");
+        }else if(nmpnj.getText().trim().equals("-")){
+            Valid.textKosong(nmpnj,"Jenis Bayar");
+        //-------------------
+        //-----Penutup-------
+        //-------------------
         }else if(Sequel.cariInteger("select count(pasien.no_rkm_medis) from pasien inner join reg_periksa inner join kamar_inap "+
                  "on reg_periksa.no_rkm_medis=pasien.no_rkm_medis and reg_periksa.no_rawat=kamar_inap.no_rawat "+
                  "where kamar_inap.stts_pulang='-' and pasien.no_rkm_medis=?",TNoRM.getText())>0){
             JOptionPane.showMessageDialog(null,"Pasien sedang dalam masa perawatan di kamar inap..!!");
             TNoRM.requestFocus();
+        //---------------------------------------
+        //Tambahan oleh Amelia Yahya Tanggal 28 Juni 2021
+        //---------------------------------------
+        }else if(Sequel.cariInteger("select count(no_rawat) from reg_periksa where no_rkm_medis='"+TNoRM.getText()+"' and kd_dokter='"+kddokter.getText()+"' and kd_poli='IGDK' and tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' ")>0){
+                        JOptionPane.showMessageDialog(null,"Maaf, gagal menyimpan data. Data Pasien yang sama sudah dimasukkan sebelumnya...!!");
+                        TNoRM.requestFocus();
+        //-------------------
+        //-----Penutup-------
+        //-------------------
         }else{
             ceksukses=false;
             switch (TStatus.getText()) {
@@ -3919,6 +3941,26 @@ public final class DlgIGD extends javax.swing.JDialog {
             Valid.textKosong(kddokter,"dokter");
         }else if(TNoRM.getText().trim().equals("")||TPasien.getText().trim().equals("")){
             Valid.textKosong(TNoRM,"pasien");
+        //---------------------------------------
+        //Tambahan oleh Amelia Yahya Tanggal 09 Juli 2021
+        //---------------------------------------
+        }else if(TPngJwb.getText().trim().equals("-")){
+            Valid.textKosong(TPngJwb,"Nama Penangung Jawab");
+        }else if(nmpnj.getText().trim().equals("-")){
+            Valid.textKosong(nmpnj,"Jenis Bayar");
+        //-------------------
+        //-----Penutup-------
+        //-------------------
+        
+        //---------------------------------------
+        //Tambahan oleh Amelia Yahya Tanggal 28 Juni 2021
+        //---------------------------------------
+        }else if(Sequel.cariInteger("select count(no_rawat) from reg_periksa where no_rkm_medis='"+TNoRM.getText()+"' and kd_dokter='"+kddokter.getText()+"' and kd_poli='IGDK' and tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' ")>0){
+                        JOptionPane.showMessageDialog(null,"Maaf, gagal menyimpan data. Data Pasien yang sama sudah dimasukkan sebelumnya...!!");
+                        TNoRM.requestFocus();
+        //-------------------
+        //-----Penutup-------
+        //-------------------
         }else{
             if(tbPetugas.getSelectedRow()>-1){
                 switch (TStatus.getText()) {
