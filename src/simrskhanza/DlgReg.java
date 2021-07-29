@@ -5484,9 +5484,9 @@ public final class DlgReg extends javax.swing.JDialog {
         //---------------------------------------
         //Tambahan oleh Amelia Yahya Tanggal 28 Juni 2021
         //---------------------------------------
-        }else if(Sequel.cariInteger("select count(no_rawat) from reg_periksa where no_rkm_medis='"+TNoRM.getText()+"' and kd_dokter='"+kddokter.getText()+"' and kd_poli='"+kdpoli.getText()+"' and tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' ")>0){
-                        JOptionPane.showMessageDialog(null,"Maaf, gagal menyimpan data. Data Pasien yang sama sudah dimasukkan sebelumnya...!!");
-                        TNoRM.requestFocus();
+        //}else if(Sequel.cariInteger("select count(no_rawat) from reg_periksa where no_rkm_medis='"+TNoRM.getText()+"' and kd_dokter='"+kddokter.getText()+"' and kd_poli='"+kdpoli.getText()+"' and tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' ")>0){
+        //                JOptionPane.showMessageDialog(null,"Maaf, gagal menyimpan data. Data Pasien yang sama sudah dimasukkan sebelumnya...!!");
+        //                TNoRM.requestFocus();
         //-------------------
         //-----Penutup-------
         //-------------------

@@ -41,7 +41,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
             Suspen_Piutang_Operasi_Ralan="",Operasi_Ralan="",Beban_Jasa_Medik_Dokter_Operasi_Ralan="",Utang_Jasa_Medik_Dokter_Operasi_Ralan="",
             Beban_Jasa_Medik_Paramedis_Operasi_Ralan="",Utang_Jasa_Medik_Paramedis_Operasi_Ralan="",HPP_Obat_Operasi_Ralan="",Persediaan_Obat_Kamar_Operasi_Ralan="",
             norawatibu="";
-    private double y=0,biayatindakan=0,biayaobat=0;
+    private double y=0,biayatindakan=0,biayaobat=0,tambahanpenyulit=0,biayaop1=0;
     private int jml=0,pilihan=0,i=0,index=0;
     private boolean[] pilih; 
     private boolean sukses=true;
@@ -501,6 +501,8 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         tbObat = new widget.Table();
         panelisi1 = new widget.panelisi();
         BtnSimpan = new widget.Button();
+        jPenyulit = new javax.swing.JCheckBox();
+        LPenyulit = new javax.swing.JLabel();
         LTotal = new widget.Label();
         BtnCari = new widget.Button();
         BtnKeluar = new widget.Button();
@@ -872,6 +874,19 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
             }
         });
         panelisi1.add(BtnSimpan);
+
+        jPenyulit.setText("25%");
+        jPenyulit.setName("jPenyulit"); // NOI18N
+        jPenyulit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPenyulitActionPerformed(evt);
+            }
+        });
+        panelisi1.add(jPenyulit);
+
+        LPenyulit.setText("Penyulit : 0");
+        LPenyulit.setName("LPenyulit"); // NOI18N
+        panelisi1.add(LPenyulit);
 
         LTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LTotal.setText("Total Biaya : 0");
@@ -2113,7 +2128,7 @@ private void tbObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
             } catch (java.lang.NullPointerException e) {
             }
         }
-        LTotal.setText("Total Biaya : "+Valid.SetAngka(biayaobat+biayatindakan));
+        LTotal.setText("Total Biaya : "+Valid.SetAngka(biayaobat+biayatindakan+tambahanpenyulit));
 }//GEN-LAST:event_tbObatMouseClicked
 
 private void tbObatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbObatKeyPressed
@@ -2140,7 +2155,7 @@ private void tbObatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tb
                 }
             }            
         }
-        LTotal.setText("Total Biaya : "+Valid.SetAngka(biayaobat+biayatindakan));
+        LTotal.setText("Total Biaya : "+Valid.SetAngka(biayaobat+biayatindakan+tambahanpenyulit));
 }//GEN-LAST:event_tbObatKeyPressed
 
 private void TCariPaketKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCariPaketKeyPressed
@@ -2190,7 +2205,7 @@ private void tbtindakanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
             }
         }
        
-        LTotal.setText("Total Biaya : "+Valid.SetAngka(biayaobat+biayatindakan));
+        LTotal.setText("Total Biaya : "+Valid.SetAngka(biayaobat+biayatindakan+tambahanpenyulit));
 }//GEN-LAST:event_tbtindakanMouseClicked
 
 private void tbtindakanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbtindakanKeyPressed
@@ -2215,7 +2230,7 @@ private void tbtindakanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
                 }
             }
     }
-    LTotal.setText("Total Biaya : "+Valid.SetAngka(biayaobat+biayatindakan));
+    LTotal.setText("Total Biaya : "+Valid.SetAngka(biayaobat+biayatindakan+tambahanpenyulit));
 }//GEN-LAST:event_tbtindakanKeyPressed
 
 private void kdoperator2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kdoperator2KeyPressed
@@ -2743,7 +2758,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                             +"','"+tbtindakan.getValueAt(i,29).toString()
                             +"','"+tbtindakan.getValueAt(i,30).toString()
                             +"','"+tbtindakan.getValueAt(i,31).toString()+"','"+status+"'","data")==true){
-                            ttljmdokter=ttljmdokter+Double.parseDouble(tbtindakan.getValueAt(i,4).toString())+
+                            ttljmdokter=ttljmdokter+
+                                    Double.parseDouble(tbtindakan.getValueAt(i,4).toString())+
                                     Double.parseDouble(tbtindakan.getValueAt(i,5).toString())+
                                     Double.parseDouble(tbtindakan.getValueAt(i,6).toString())+
                                     Double.parseDouble(tbtindakan.getValueAt(i,11).toString())+
@@ -2952,6 +2968,40 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         Valid.pindah(evt,BtnOperator2,BtnAnastesi);
     }//GEN-LAST:event_btnOperator3KeyPressed
 
+    private void jPenyulitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPenyulitActionPerformed
+    //Source Code di edit oleh Amelia Yahya 24 Juli 2021
+        
+        biayaop1=0;
+            y=0;
+            int row2=tbtindakan.getRowCount();
+            for(int r=0;r<row2;r++){ 
+                switch (tbtindakan.getValueAt(r,0).toString()) {
+                    case "true":
+                        try {
+                            y=Double.parseDouble(tbtindakan.getValueAt(r,4).toString());
+                        } catch (Exception e) {
+                            y=0;
+                        }                        
+                        break;                
+                    case "false":
+                        y=0;
+                        break;
+                }
+                biayaop1=biayaop1+y;
+            }
+        
+        if (jPenyulit.isSelected()==true){
+                tambahanpenyulit =   biayaop1 * 0.25;
+        }else if(jPenyulit.isSelected()==false){   
+                tambahanpenyulit = 0;
+            }
+        LPenyulit.setText("Penyulit : "+Valid.SetAngka(tambahanpenyulit));
+        
+        LTotal.setText("Total Biaya : "+Valid.SetAngka(biayaobat+biayatindakan+tambahanpenyulit));
+        
+        
+    }//GEN-LAST:event_jPenyulitActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2989,6 +3039,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.TextBox Jaringan;
     private widget.ComboBox Kategori;
     private widget.TextBox Kd2;
+    private javax.swing.JLabel LPenyulit;
     private widget.Label LTotal;
     private widget.TextArea Laporan;
     private javax.swing.JPanel PanelInput;
@@ -3031,6 +3082,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JCheckBox jPenyulit;
     private widget.TextBox jenis;
     private widget.TextBox kdInstrumen;
     private widget.TextBox kdanestesi;
@@ -3477,7 +3529,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }
     
-    private void getData2(){
+   private void getData2(){
        int row=tbtindakan.getSelectedRow();
         if(row!= -1){         
             if(tbtindakan.getValueAt(tbtindakan.getSelectedRow(),0).toString().equals("true")){
@@ -3532,11 +3584,42 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         break;
                 }
                 biayatindakan=biayatindakan+y;
-            }            
+            }           
         }
     }
-    
 
+
+    private void getData3(){
+       int row=tbtindakan.getSelectedRow();
+        if(row!= -1){         
+            if(tbtindakan.getValueAt(tbtindakan.getSelectedRow(),0).toString().equals("true")){
+                try {
+                    tbtindakan.setValueAt(Double.parseDouble(tbtindakan.getValueAt(row,4).toString()), row,32);
+                } catch (Exception e) {
+                    tbtindakan.setValueAt(0, row,32);
+                }                    
+            }
+           
+            biayaop1=0;
+            y=0;
+            int row3=tbtindakan.getRowCount();
+            for(int r=0;r<row3;r++){ 
+                switch (tbtindakan.getValueAt(r,0).toString()) {
+                    case "true":
+                        try {
+                            y=Double.parseDouble(tbtindakan.getValueAt(r,32).toString());
+                        } catch (Exception e) {
+                            y=0;
+                        }                        
+                        break;                
+                    case "false":
+                        y=0;
+                        break;
+                }
+                biayaop1=biayaop1+y;
+            }           
+        }
+    }
     
     public void isCek(){
        // Valid.autoNomer3("select ifnull(MAX(CONVERT(RIGHT(nota_jual,6),signed)),0) from penjualan ","PJ",6,NoNota); 

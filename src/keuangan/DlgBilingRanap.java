@@ -6178,6 +6178,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         if(rsoperasi.getDouble("biaya_dokter_umum")>0){
                            tabModeRwJlDr.addRow(new Object[]{true,"                           ","  Biaya Dokter Umum",":",rsoperasi.getDouble("biaya_dokter_umum"),1,0,rsoperasi.getDouble("biaya_dokter_umum"),"Operasi"}); 
                         }
+                        
+                        /*if(rsoperasi.getDouble("biaya_penyulit")>0){
+                           tabModeRwJlDr.addRow(new Object[]{true,"                           ","  Biaya Penyulit",":",rsoperasi.getDouble("biaya_penyulit"),1,0,rsoperasi.getDouble("biaya_penyulit"),"Operasi"}); 
+                        }*/
                         subttl=subttl+rsoperasi.getDouble("biaya");
                     }
                 }else{
